@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>EnviroPro Dashboard</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="mt-5">EnviroPro Dashboard</h1>
+			<button id="createWordPress" class="btn btn-primary">Create WordPress</button>
+			<button id="createLaravel" class="btn btn-primary">Create Laravel</button>
+			<div class="mt-3">
+				<select id="phpVersion" class="form-control">
+					<option value="7.4">PHP 7.4</option>
+					<option value="8.0">PHP 8.0</option>
+				</select>
+				<select id="mysqlVersion" class="form-control mt-2">
+					<option value="5.7">MySQL 5.7</option>
+					<option value="8.0">MySQL 8.0</option>
+				</select>
+				<button id="setVersions" class="btn btn-success mt-2">Set Versions</button>
+			</div>
+			<div id="output" class="mt-3"></div>
+		</div>
+		<script src="renderer.js"></script>
+	</body>
+</html>

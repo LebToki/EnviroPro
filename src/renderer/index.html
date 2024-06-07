@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>EnviroPro Dashboard</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<style>
+			#popup {
+				display: none;
+				position: fixed;
+				bottom: 20px;
+				right: 20px;
+				width: 300px;
+				background: white;
+				border: 1px solid #ccc;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+				padding: 20px;
+				z-index: 1000;
+			}
+			#debug {
+				position: fixed;
+				bottom: 20px;
+				left: 20px;
+				width: 300px;
+				background: white;
+				border: 1px solid #ccc;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+				padding: 20px;
+				z-index: 1000;
+			}
+			#sidePanel {
+				position: fixed;
+				top: 20px;
+				left: 20px;
+				width: 200px;
+				background: white;
+				border: 1px solid #ccc;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+				padding: 20px;
+				z-index: 1000;
+			}
+			.status-indicator {
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				display: inline-block;
+			}
+			.status-indicator.green {
+				background-color: green;
+			}
+			.status-indicator.red {
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="sidePanel">
+			<h4>Services Control</h4>
+			<div>
+				<button id="startApache" class="btn btn-success">Start Apache</button>
+				<button id="stopApache" class="btn btn-danger">Stop Apache</button>
+				<span id="apacheStatus" class="status-indicator red"></span>
+				<span>Apache</span>
+			</div>
+			<div class="mt-2">
+				<button id="startMySQL" class="btn btn-success">Start MySQL</button>
+				<button id="stopMySQL" class="btn btn-danger">Stop MySQL</button>
+				<span id="mysqlStatus" class="status-indicator red"></span>
+				<span>MySQL</span>
+			</div>
+			<div class="mt-2">
+				<button id="openPhpMyAdmin" class="btn btn-info">Open phpMyAdmin</button>
+			</div>
+		</div>
+		<div class="container">
+			<h1 class="mt-5">EnviroPro Dashboard</h1>
+			<div class="mt-3">
+				<input type="text" id="projectName" class="form-control" placeholder="Enter Project Name">
+				<select id="environment" class="form-control mt-2">
+					<option value="Blank">Blank</option>
+					<option value="WordPress">WordPress</option>
+					<option value="Laravel">Laravel</option>
+					<option value="CakePHP">CakePHP</option>
+					<option value="Symfony">Symfony</option>
+				</select>
+				<button id="createEnv" class="btn btn-primary mt-2">Create Environment</button>
+			</div>
+			<div class="mt-3">
+				<select id="phpVersion" class="form-control">
+					<option value="7.4">PHP 7.4</option>
+					<option value="8.0">PHP 8.0</option>
+				</select>
+				<select id="mysqlVersion" class="form-control mt-2">
+					<option value="5.7">MySQL 5.7</option>
+					<option value="8.0">MySQL 8.0</option>
+				</select>
+				<button id="setVersions" class="btn btn-success mt-2">Set Versions</button>
+			</div>
+			<div id="output" class="mt-3"></div>
+		</div>
+		<div id="popup">
+			<h4>Processing...</h4>
+			<div id="popupContent"></div>
+		</div>
+		<div id="debug">
+			<h4>Debug Info</h4>
+			<div id="debugContent"></div>
+		</div>
+		<script src="renderer.js"></script>
+	</body>
+</html>

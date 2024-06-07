@@ -1,0 +1,53 @@
+2024-06-06T22:29:58.725Z - Error stopping apache: Command failed: taskkill /F /IM httpd.exe
+ERROR: The process "httpd.exe" not found.
+
+2024-06-06T22:44:18.513Z - Error stopping apache: Command failed: taskkill /F /IM httpd.exe
+ERROR: The process "httpd.exe" not found.
+
+2024-06-06T22:44:18.513Z - Stderr stopping apache: ERROR: The process "httpd.exe" not found.
+
+2024-06-06T22:44:19.758Z - Error stopping mysql: Command failed: taskkill /F /IM mysqld.exe
+ERROR: The process "mysqld.exe" not found.
+
+2024-06-06T22:44:19.759Z - Stderr stopping mysql: ERROR: The process "mysqld.exe" not found.
+
+2024-06-06T22:44:34.544Z - Error stopping mysql: Command failed: taskkill /F /IM mysqld.exe
+ERROR: The process "mysqld.exe" not found.
+
+2024-06-06T22:44:34.545Z - Stderr stopping mysql: ERROR: The process "mysqld.exe" not found.
+
+2024-06-06T22:44:35.397Z - Error stopping apache: Command failed: taskkill /F /IM httpd.exe
+ERROR: The process "httpd.exe" not found.
+
+2024-06-06T22:44:35.398Z - Stderr stopping apache: ERROR: The process "httpd.exe" not found.
+
+2024-06-06T22:44:40.981Z - Error stopping apache: Command failed: taskkill /F /IM httpd.exe
+ERROR: The process "httpd.exe" not found.
+
+2024-06-06T22:44:40.982Z - Stderr stopping apache: ERROR: The process "httpd.exe" not found.
+
+2024-06-06T22:44:41.672Z - Error stopping mysql: Command failed: taskkill /F /IM mysqld.exe
+ERROR: The process "mysqld.exe" not found.
+
+2024-06-06T22:44:41.673Z - Stderr stopping mysql: ERROR: The process "mysqld.exe" not found.
+
+2024-06-06T22:44:45.518Z - Error stopping apache: Command failed: taskkill /F /IM httpd.exe
+ERROR: The process "httpd.exe" not found.
+
+2024-06-06T22:44:45.518Z - Stderr stopping apache: ERROR: The process "httpd.exe" not found.
+
+2024-06-06T22:44:46.217Z - Error stopping mysql: Command failed: taskkill /F /IM mysqld.exe
+ERROR: The process "mysqld.exe" not found.
+
+2024-06-06T22:44:46.218Z - Stderr stopping mysql: ERROR: The process "mysqld.exe" not found.
+
+2024-06-06T22:51:04.141Z - Error stopping apache: Command failed: taskkill /F /IM httpd.exe
+ERROR: The process "httpd.exe" not found.
+
+2024-06-06T22:51:04.142Z - Stderr stopping apache: ERROR: The process "httpd.exe" not found.
+
+2024-06-06T22:51:04.929Z - Error stopping mysql: Command failed: taskkill /F /IM mysqld.exe
+ERROR: The process "mysqld.exe" not found.
+
+2024-06-06T22:51:04.930Z - Stderr stopping mysql: ERROR: The process "mysqld.exe" not found.
+
