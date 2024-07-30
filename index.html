@@ -1,29 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>EnviroPro Dashboard</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	</head>
-	<body>
-		<div class="container">
-			<h1 class="mt-5">EnviroPro Dashboard</h1>
-			<button id="createWordPress" class="btn btn-primary">Create WordPress</button>
-			<button id="createLaravel" class="btn btn-primary">Create Laravel</button>
-			<div class="mt-3">
-				<select id="phpVersion" class="form-control">
-					<option value="7.4">PHP 7.4</option>
-					<option value="8.0">PHP 8.0</option>
-				</select>
-				<select id="mysqlVersion" class="form-control mt-2">
-					<option value="5.7">MySQL 5.7</option>
-					<option value="8.0">MySQL 8.0</option>
-				</select>
-				<button id="setVersions" class="btn btn-success mt-2">Set Versions</button>
-			</div>
-			<div id="output" class="mt-3"></div>
-		</div>
-		<script src="renderer.js"></script>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnviroPro Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .service-status {
+            font-weight: bold;
+        }
+        .running {
+            color: green;
+        }
+        .stopped {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">EnviroPro Dashboard</h1>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h3>Services</h3>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span>Apache: <span id="apacheStatus" class="service-status">Unknown</span></span>
+                    <button id="toggleApache" class="btn btn-primary">Start/Stop Apache</button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span>MySQL: <span id="mysqlStatus" class="service-status">Unknown</span></span>
+                    <button id="toggleMySQL" class="btn btn-primary">Start/Stop MySQL</button>
+                </div>
+                <button id="openPhpMyAdmin" class="btn btn-info mt-2">Open phpMyAdmin</button>
+            </div>
+            
+            <div class="col-md-6">
+                <h3>Environment Setup</h3>
+                <div class="form-group">
+                    <label for="phpVersion">PHP Version:</label>
+                    <select id="phpVersion" class="form-control">
+                        <option value="7.4">PHP 7.4</option>
+                        <option value="8.0">PHP 8.0</option>
+                        <option value="8.1">PHP 8.1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mysqlVersion">MySQL Version:</label>
+                    <select id="mysqlVersion" class="form-control">
+                        <option value="5.7">MySQL 5.7</option>
+                        <option value="8.0">MySQL 8.0</option>
+                    </select>
+                </div>
+                <button id="setVersions" class="btn btn-success">Set Versions</button>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h3>Project Creation</h3>
+                <button id="createWordPress" class="btn btn-primary mr-2">Create WordPress</button>
+                <button id="createLaravel" class="btn btn-primary">Create Laravel</button>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h3>Output</h3>
+            <div id="output" class="bg-light p-3 rounded"></div>
+        </div>
+    </div>
+    
+    <script src="renderer.js"></script>
+</body>
 </html>
