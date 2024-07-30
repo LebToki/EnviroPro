@@ -15,22 +15,44 @@
         .stopped {
             color: red;
         }
+        #output {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5">EnviroPro Dashboard </h1>
+        <h1 class="mt-5">EnviroPro Dashboard</h1>
         
         <div class="row mt-4">
             <div class="col-md-6">
                 <h3>Services</h3>
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <span>Apache: <span id="apacheStatus" class="service-status">Unknown</span></span>
-                    <button id="toggleApache" class="btn btn-primary">Start/Stop Apache</button>
+                    <div>
+                        <button id="startApache" class="btn btn-success btn-sm">Start</button>
+                        <button id="stopApache" class="btn btn-danger btn-sm">Stop</button>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <span>MySQL: <span id="mysqlStatus" class="service-status">Unknown</span></span>
-                    <button id="toggleMySQL" class="btn btn-primary">Start/Stop MySQL</button>
+                    <div>
+                        <button id="startMySQL" class="btn btn-success btn-sm">Start</button>
+                        <button id="stopMySQL" class="btn btn-danger btn-sm">Stop</button>
+                    </div>
                 </div>
                 <button id="openPhpMyAdmin" class="btn btn-info mt-2">Open phpMyAdmin</button>
             </div>
@@ -59,8 +81,18 @@
         <div class="row mt-4">
             <div class="col-md-6">
                 <h3>Project Creation</h3>
-                <button id="createWordPress" class="btn btn-primary mr-2">Create WordPress</button>
-                <button id="createLaravel" class="btn btn-primary">Create Laravel</button>
+                <div class="form-group">
+                    <label for="projectName">Project Name:</label>
+                    <input type="text" id="projectName" class="form-control" placeholder="Enter project name">
+                </div>
+                <div class="form-group">
+                    <label for="environment">Environment:</label>
+                    <select id="environment" class="form-control">
+                        <option value="WordPress">WordPress</option>
+                        <option value="Laravel">Laravel</option>
+                    </select>
+                </div>
+                <button id="createEnv" class="btn btn-primary">Create Environment</button>
             </div>
         </div>
         
@@ -70,6 +102,10 @@
         </div>
     </div>
     
+    <div id="popup">
+        <div id="popupContent"></div>
+    </div>
+
     <script src="renderer.js"></script>
 </body>
 </html>
