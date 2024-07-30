@@ -5,8 +5,8 @@ const { exec } = require('child_process');
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 700,
+    width: 1200,
+    height: 800,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
@@ -16,67 +16,100 @@ function createWindow() {
 
   mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
 
+  // Open DevTools in development mode
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.webContents.openDevTools();
+  }
+
+  setupIpcHandlers(mainWindow);
+}
+
+function setupIpcHandlers(mainWindow) {
   ipcMain.handle('execute-command', async (event, command) => {
-    return new Promise((resolve, reject) => {
-      exec(command, (error, stdout, stderr) => {
-        if (error) {
-          reject(`Error: ${error.message}`);
-          return;
-        }
-        if (stderr) {
-          reject(`Stderr: ${stderr}`);
-          return;
-        }
-        resolve(stdout);
-      });
-    });
+    return executeCommand(command);
   });
 
-  ipcMain.on('start-service', (event, service) => {
-    let command;
-    if (service === 'apache') {
-      command = 'start "" "D:\\EnviroPro\\bin\\apache\\bin\\httpd.exe"';
-    } else if (service === 'mysql') {
-      command = 'start "" "D:\\EnviroPro\\bin\\mysql\\bin\\mysqld.exe" --console';
-    }
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        logError(`Error starting ${service}: ${error.message}`);
-        mainWindow.webContents.send('service-status', service, 'stopped');
-      } else {
-        logMessage(`${service} started successfully`);
-        mainWindow.webContents.send('service-status', service, 'running');
-      }
-      if (stderr) {
-        logError(`Stderr starting ${service}: ${stderr}`);
-      }
-    });
-  });
-
-  ipcMain.on('stop-service', (event, service) => {
-    let command;
-    if (service === 'apache') {
-      command = 'taskkill /F /IM httpd.exe';
-    } else if (service === 'mysql') {
-      command = 'taskkill /F /IM mysqld.exe';
-    }
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        logError(`Error stopping ${service}: ${error.message}`);
-        mainWindow.webContents.send('service-status', service, 'running');
-      } else {
-        logMessage(`${service} stopped successfully`);
-        mainWindow.webContents.send('service-status', service, 'stopped');
-      }
-      if (stderr) {
-        logError(`Stderr stopping ${service}: ${stderr}`);
-      }
-    });
+  ipcMain.on('toggle-service', (event, service) => {
+    toggleService(service, mainWindow);
   });
 
   ipcMain.on('open-phpmyadmin', () => {
     shell.openExternal('http://localhost/phpmyadmin');
   });
+
+  ipcMain.on('set-versions', (event, phpVersion, mysqlVersion) => {
+    setVersions(phpVersion, mysqlVersion, mainWindow);
+  });
+
+  ipcMain.on('create-project', (event, projectType) => {
+    createProject(projectType, mainWindow);
+  });
+}
+
+function executeCommand(command) {
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject(`Error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        reject(`Stderr: ${stderr}`);
+        return;
+      }
+      resolve(stdout);
+    });
+  });
+}
+
+function toggleService(service, mainWindow) {
+  const isRunning = checkServiceStatus(service);
+  const action = isRunning ? 'stop' : 'start';
+  const command = getServiceCommand(service, action);
+
+  executeCommand(command)
+    .then(() => {
+      const newStatus = action === 'start' ? 'running' : 'stopped';
+      logMessage(`${service} ${action}ed successfully`);
+      mainWindow.webContents.send('service-status', service, newStatus);
+    })
+    .catch((error) => {
+      logError(`Error ${action}ing ${service}: ${error}`);
+      mainWindow.webContents.send('service-status', service, isRunning ? 'running' : 'stopped');
+    });
+}
+
+function checkServiceStatus(service) {
+  // Implement logic to check if the service is running
+  // This is a placeholder and should be replaced with actual status checking logic
+  return false;
+}
+
+function getServiceCommand(service, action) {
+  const commands = {
+    apache: {
+      start: 'start "" "D:\\EnviroPro\\bin\\apache\\bin\\httpd.exe"',
+      stop: 'taskkill /F /IM httpd.exe'
+    },
+    mysql: {
+      start: 'start "" "D:\\EnviroPro\\bin\\mysql\\bin\\mysqld.exe" --console',
+      stop: 'taskkill /F /IM mysqld.exe'
+    }
+  };
+
+  return commands[service][action];
+}
+
+function setVersions(phpVersion, mysqlVersion, mainWindow) {
+  // Implement logic to set PHP and MySQL versions
+  logMessage(`Setting PHP version to ${phpVersion} and MySQL version to ${mysqlVersion}`);
+  mainWindow.webContents.send('versions-set', phpVersion, mysqlVersion);
+}
+
+function createProject(projectType, mainWindow) {
+  // Implement logic to create WordPress or Laravel projects
+  logMessage(`Creating ${projectType} project`);
+  mainWindow.webContents.send('project-created', projectType);
 }
 
 function logMessage(message) {
